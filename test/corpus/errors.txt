@@ -1,0 +1,76 @@
+================
+Unclosed component tag
+================
+
+<Notice type="warning">
+  This content has no closing tag.
+
+---
+
+(document
+  (ERROR
+    (open_tag
+      (tag_name)
+      (attribute
+        (string_attribute
+          (attribute_name)
+          (string_value
+            (double_quoted_content)))))
+    (component_text)))
+
+================
+Misnested component tags
+================
+
+<Outer>
+  <Inner>
+</Outer>
+</Inner>
+
+---
+
+(document
+  (component
+    (open_tag
+      (tag_name))
+    (component_text)
+    (component
+      (open_tag
+        (tag_name))
+      (component_text)
+      (close_tag
+        (tag_name)))
+    (component_text)
+    (close_tag
+      (tag_name)))
+  (text))
+
+================
+Empty string attribute
+================
+
+<Badge label="" />
+
+---
+
+(document
+  (self_closing_component
+    (tag_name)
+    (attribute
+      (string_attribute
+        (attribute_name)
+        (string_value))))
+  (text))
+
+================
+Self-closing with no space before />
+================
+
+<Divider/>
+
+---
+
+(document
+  (self_closing_component
+    (tag_name))
+  (text))

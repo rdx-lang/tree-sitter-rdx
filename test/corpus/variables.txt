@@ -1,0 +1,26 @@
+================
+Variable interpolation in text
+================
+
+Welcome to {$title} documentation.
+
+---
+
+(document
+  (text)
+  (variable_interpolation
+    (variable_path))
+  (text))
+
+================
+Escaped variable
+================
+
+Use \{$variable} to interpolate.
+
+---
+
+(document
+  (text)
+  (escaped_sequence)
+  (text))

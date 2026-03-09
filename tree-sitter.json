@@ -1,0 +1,27 @@
+{
+  "grammars": [
+    {
+      "name": "rdx",
+      "camelcase": "RDX",
+      "scope": "source.rdx",
+      "path": ".",
+      "file-types": ["rdx"],
+      "injection-regex": "^rdx$",
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammar for RDX (Reactive Document eXpressions)",
+    "authors": [
+      {
+        "name": "RDX Contributors"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/rdx-lang/tree-sitter-rdx"
+    }
+  }
+}

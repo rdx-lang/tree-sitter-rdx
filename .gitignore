@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Generated parser (reproducible via `tree-sitter generate`)
+src/parser.c
+src/tree_sitter/
+src/grammar.json
+src/node-types.json
+
+# Build artifacts
+build/
+prebuilds/
+*.node
+*.wasm
+
+# Lockfiles
+bun.lockb
+package-lock.json
+yarn.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*

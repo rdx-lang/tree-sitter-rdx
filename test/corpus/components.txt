@@ -1,0 +1,84 @@
+================
+Self-closing component
+================
+
+<HeroImage src="/assets/hero.png" />
+
+---
+
+(document
+  (self_closing_component
+    (tag_name)
+    (attribute
+      (string_attribute
+        (attribute_name)
+        (string_value
+          (double_quoted_content)))))
+  (text))
+
+================
+Block component with children
+================
+
+<Notice type="warning">
+  This API is deprecated.
+</Notice>
+
+---
+
+(document
+  (component
+    (open_tag
+      (tag_name)
+      (attribute
+        (string_attribute
+          (attribute_name)
+          (string_value
+            (double_quoted_content)))))
+    (component_text)
+    (close_tag
+      (tag_name)))
+  (text))
+
+================
+Boolean shorthand attribute
+================
+
+<Input disabled />
+
+---
+
+(document
+  (self_closing_component
+    (tag_name)
+    (attribute
+      (boolean_shorthand_attribute
+        (attribute_name))))
+  (text))
+
+================
+Nested components
+================
+
+<Card>
+  <Badge status="new" />
+</Card>
+
+---
+
+(document
+  (component
+    (open_tag
+      (tag_name))
+    (component_text)
+    (self_closing_component
+      (tag_name)
+      (attribute
+        (string_attribute
+          (attribute_name)
+          (string_value
+            (double_quoted_content)))))
+    (component_text)
+    (close_tag
+      (tag_name)))
+  (text))

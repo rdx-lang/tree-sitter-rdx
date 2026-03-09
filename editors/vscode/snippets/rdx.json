@@ -1,0 +1,53 @@
+{
+  "RDX Frontmatter": {
+    "prefix": "frontmatter",
+    "body": [
+      "---",
+      "title: ${1:Title}",
+      "${2:key: value}",
+      "---",
+      "",
+      "$0"
+    ],
+    "description": "Insert RDX frontmatter block"
+  },
+  "RDX Component (Block)": {
+    "prefix": "comp",
+    "body": [
+      "<${1:Component} ${2:prop=\"value\"}>",
+      "  $0",
+      "</${1:Component}>"
+    ],
+    "description": "Insert an RDX block component"
+  },
+  "RDX Component (Self-Closing)": {
+    "prefix": "comps",
+    "body": [
+      "<${1:Component} ${2:prop=\"value\"} />"
+    ],
+    "description": "Insert an RDX self-closing component"
+  },
+  "RDX Variable": {
+    "prefix": "var",
+    "body": [
+      "{\\$${1:path}}"
+    ],
+    "description": "Insert an RDX variable interpolation"
+  },
+  "RDX JSON Attribute": {
+    "prefix": "json",
+    "body": [
+      "${1:prop}={{",
+      "  ${0:\"key\": \"value\"}",
+      "}}"
+    ],
+    "description": "Insert a JSON object attribute"
+  },
+  "RDX Primitive Attribute": {
+    "prefix": "prim",
+    "body": [
+      "${1:prop}={${2:true}}"
+    ],
+    "description": "Insert a primitive attribute"
+  }
+}

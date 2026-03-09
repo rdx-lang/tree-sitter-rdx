@@ -1,0 +1,82 @@
+================
+Primitive attributes
+================
+
+<Pagination activePage={2} isInteractive={true} />
+
+---
+
+(document
+  (self_closing_component
+    (tag_name)
+    (attribute
+      (primitive_attribute
+        (attribute_name)
+        (primitive_value
+          (number_literal))))
+    (attribute
+      (primitive_attribute
+        (attribute_name)
+        (primitive_value
+          (boolean_literal)))))
+  (text))
+
+================
+JSON object attribute
+================
+
+<Chart config={{
+  "type": "bar"
+}} />
+
+---
+
+(document
+  (self_closing_component
+    (tag_name)
+    (attribute
+      (json_attribute
+        (attribute_name)
+        (json_content))))
+  (text))
+
+================
+Variable attribute
+================
+
+<Button label={$frontmatter.buttonText} />
+
+---
+
+(document
+  (self_closing_component
+    (tag_name)
+    (attribute
+      (variable_attribute
+        (attribute_name)
+        (variable_value
+          (variable_path)))))
+  (text))
+
+================
+Hyphenated attribute name
+================
+
+<Comp data-id="x" aria-label="test" />
+
+---
+
+(document
+  (self_closing_component
+    (tag_name)
+    (attribute
+      (string_attribute
+        (attribute_name)
+        (string_value
+          (double_quoted_content))))
+    (attribute
+      (string_attribute
+        (attribute_name)
+        (string_value
+          (double_quoted_content)))))
+  (text))

@@ -1,0 +1,59 @@
+===
+Inline math
+===
+
+The equation $x^2 + y^2 = z^2$ is famous.
+
+---
+
+(document
+  (text)
+  (inline_math
+    (math_expression))
+  (text))
+
+===
+Display math block
+===
+
+$$
+E = mc^2
+$$
+
+---
+
+(document
+  (text)
+  (display_math
+    (math_delimiter)
+    (math_content)
+    (math_delimiter)))
+
+===
+Math does not conflict with variables
+===
+
+Price is {$amount} dollars.
+
+---
+
+(document
+  (text)
+  (variable_interpolation
+    (variable_path))
+  (text))
+
+===
+Dollar signs mid-line are not display math
+===
+
+The cost is $$50 per unit.
+
+---
+
+(document
+  (text)
+  (ERROR)
+  (inline_math
+    (math_expression)
+    (MISSING "$")))

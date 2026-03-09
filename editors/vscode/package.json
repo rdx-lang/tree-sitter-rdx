@@ -1,0 +1,43 @@
+{
+  "name": "rdx-lang",
+  "displayName": "RDX Language Support",
+  "description": "Syntax highlighting, snippets, and language support for RDX (Reactive Document eXpressions)",
+  "version": "0.1.0",
+  "publisher": "rdx-lang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rdx-lang/tree-sitter-rdx"
+  },
+  "categories": ["Programming Languages"],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "rdx",
+        "aliases": ["RDX", "rdx"],
+        "extensions": [".rdx"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "rdx",
+        "scopeName": "source.rdx",
+        "path": "./syntaxes/rdx.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.yaml": "yaml",
+          "meta.embedded.block.json": "json"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "rdx",
+        "path": "./snippets/rdx.json"
+      }
+    ]
+  }
+}

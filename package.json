@@ -1,0 +1,57 @@
+{
+  "name": "tree-sitter-rdx",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar for RDX (Reactive Document eXpressions)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rdx-lang/tree-sitter-rdx"
+  },
+  "main": "bindings/node",
+  "keywords": [
+    "tree-sitter",
+    "parser",
+    "rdx",
+    "markdown"
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
+  ],
+  "dependencies": {
+    "node-addon-api": "^8.3.1",
+    "node-gyp-build": "^4.8.4"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.25.3"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.22.4"
+  },
+  "peerDependenciesMeta": {
+    "tree-sitter": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "build": "tree-sitter generate && node-gyp rebuild",
+    "test": "tree-sitter test",
+    "parse": "tree-sitter parse"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.rdx",
+      "file-types": [
+        "rdx"
+      ],
+      "injection-regex": "^rdx$",
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm"
+    }
+  ]
+}
