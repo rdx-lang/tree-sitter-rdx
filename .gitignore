@@ -10,8 +10,12 @@ src/node-types.json
 # Build artifacts
 build/
 prebuilds/
+target/
 *.node
 *.wasm
+*.so
+*.dylib
+*.dll
 
 # Lockfiles
 bun.lockb
