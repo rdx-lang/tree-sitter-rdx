@@ -53,7 +53,7 @@ jobs:
     needs: validate-version
     uses: ./.github/workflows/ci.yml
 
-  publish:
+  publish-npm:
     name: Publish to npm
     needs: [validate-version, ci]
     runs-on: ubuntu-latest
@@ -80,3 +80,106 @@ jobs:
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-crate:
+    name: Publish to crates.io
+    needs: [validate-version, ci]
+    runs-on: ubuntu-latest
+    environment: crates-io
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Sync version from tag
+        run: |
+          VERSION="${{ needs.validate-version.outputs.version }}"
+          sed -i "s/^version = \".*\"/version = \"$VERSION\"/" Cargo.toml
+          echo "Set Cargo.toml version to $VERSION"
+
+      - name: Publish to crates.io
+        run: cargo publish --allow-dirty
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+
+  build-wheels:
+    name: Build wheels (${{ matrix.os }})
+    needs: [validate-version, ci]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sync version from tag
+        shell: bash
+        run: |
+          VERSION="${{ needs.validate-version.outputs.version }}"
+          sed -i.bak "s/^version = \".*\"/version = \"$VERSION\"/" pyproject.toml
+          echo "Set pyproject.toml version to $VERSION"
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2
+        with:
+          output-dir: dist
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}
+          path: dist
+
+  build-sdist:
+    name: Build source distribution
+    needs: validate-version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sync version from tag
+        run: |
+          VERSION="${{ needs.validate-version.outputs.version }}"
+          sed -i "s/^version = \".*\"/version = \"$VERSION\"/" pyproject.toml
+          echo "Set pyproject.toml version to $VERSION"
+
+      - name: Build sdist
+        run: pip install build && python -m build --sdist --outdir dist
+
+      - name: Upload sdist
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-sdist
+          path: dist
+
+  publish-pypi:
+    name: Publish to PyPI
+    needs: [validate-version, build-wheels, build-sdist]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/tree-sitter-rdx
+    permissions:
+      id-token: write
+    steps:
+      - name: Download all wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-*
+          path: dist
+          merge-multiple: true
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

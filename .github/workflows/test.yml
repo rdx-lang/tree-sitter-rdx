@@ -26,11 +26,17 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
 
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
       - name: Install dependencies
         run: bun install
 
       - name: Generate parser
         run: bun x tree-sitter generate
 
-      - name: Run tests
+      - name: Run tree-sitter tests
         run: bun x tree-sitter test
+
+      - name: Run Rust tests
+        run: cargo test
