@@ -1,9 +1,7 @@
 # Dependencies
 node_modules/
 
-# Generated parser (reproducible via `tree-sitter generate`)
-src/parser.c
-src/tree_sitter/
+# Generated parser metadata (reproducible via `tree-sitter generate`)
 src/grammar.json
 src/node-types.json
 
