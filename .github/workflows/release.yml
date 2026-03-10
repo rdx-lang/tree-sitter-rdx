@@ -82,6 +82,12 @@ jobs:
       - name: Generate parser
         run: bun x tree-sitter generate
 
+      - name: Sync version from tag
+        run: |
+          VERSION="${{ needs.validate-version.outputs.version }}"
+          jq --arg v "$VERSION" '.version = $v' package.json > tmp.json && mv tmp.json package.json
+          echo "Set package.json version to $VERSION"
+
       - name: Publish
         run: |
           VERSION="${{ needs.validate-version.outputs.version }}"
@@ -148,7 +154,7 @@ jobs:
           echo "Set pyproject.toml version to $VERSION"
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2
+        uses: pypa/cibuildwheel@v3
         with:
           output-dir: dist
 

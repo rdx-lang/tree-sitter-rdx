@@ -3,7 +3,6 @@ node_modules/
 
 # Generated parser metadata (reproducible via `tree-sitter generate`)
 src/grammar.json
-src/node-types.json
 
 # Build artifacts
 build/
