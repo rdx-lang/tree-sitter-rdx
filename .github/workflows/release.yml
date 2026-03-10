@@ -88,7 +88,12 @@ jobs:
           if npm view tree-sitter-rdx@$VERSION version 2>/dev/null; then
             echo "tree-sitter-rdx@$VERSION already published to npm — skipping"
           else
-            npm publish --access public --provenance
+            TAG_FLAG=""
+            if [[ "$VERSION" == *-* ]]; then
+              PRERELEASE="${VERSION#*-}"
+              TAG_FLAG="--tag ${PRERELEASE%%.*}"
+            fi
+            npm publish --access public --provenance $TAG_FLAG
           fi
 
   publish-crate:
