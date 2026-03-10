@@ -77,7 +77,13 @@ jobs:
         run: bun x tree-sitter generate
 
       - name: Publish
-        run: npm publish --access public
+        run: |
+          VERSION="${{ needs.validate-version.outputs.version }}"
+          if npm view tree-sitter-rdx@$VERSION version 2>/dev/null; then
+            echo "tree-sitter-rdx@$VERSION already published to npm — skipping"
+          else
+            npm publish --access public
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -99,7 +105,13 @@ jobs:
           echo "Set Cargo.toml version to $VERSION"
 
       - name: Publish to crates.io
-        run: cargo publish --allow-dirty
+        run: |
+          VERSION="${{ needs.validate-version.outputs.version }}"
+          if cargo search tree-sitter-rdx --limit 1 2>/dev/null | grep -q "\"$VERSION\""; then
+            echo "tree-sitter-rdx@$VERSION already published to crates.io — skipping"
+          else
+            cargo publish --allow-dirty
+          fi
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
