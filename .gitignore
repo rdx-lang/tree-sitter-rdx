@@ -1,35 +1,52 @@
-# Dependencies
-node_modules/
+# Rust artifacts
+target/
+Cargo.lock
 
-# Generated parser metadata (reproducible via `tree-sitter generate`)
-src/grammar.json
-
-# Build artifacts
+# Node artifacts
 build/
 prebuilds/
-target/
-*.node
-*.wasm
-*.so
-*.dylib
-*.dll
-
-# Lockfiles
-bun.lockb
+node_modules/
 package-lock.json
+bun.lockb
 yarn.lock
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
+# Swift artifacts
+.build/
+Package.resolved
 
-# OS
-.DS_Store
-Thumbs.db
+# Go artifacts
+_obj/
 
-# Environment
-.env
-.env.*
+# Python artifacts
+.venv/
+dist/
+*.egg-info
+*.whl
+
+# C artifacts
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.pc
+*.exp
+*.lib
+
+# Zig artifacts
+.zig-cache/
+zig-cache/
+zig-out/
+
+# Example dirs
+/examples/*/
+
+# Grammar volatiles
+*.wasm
+*.obj
+*.o
+
+# Archives
+*.tar.gz
+*.tgz
+*.zip
