@@ -58,6 +58,9 @@ jobs:
     needs: [validate-version, ci]
     runs-on: ubuntu-latest
     environment: npm
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
@@ -82,10 +85,8 @@ jobs:
           if npm view tree-sitter-rdx@$VERSION version 2>/dev/null; then
             echo "tree-sitter-rdx@$VERSION already published to npm — skipping"
           else
-            npm publish --access public
+            npm publish --access public --provenance
           fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-crate:
     name: Publish to crates.io
