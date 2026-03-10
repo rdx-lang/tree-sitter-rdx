@@ -17,7 +17,7 @@
     "description": "Tree-sitter grammar for RDX (Reactive Document eXpressions)",
     "authors": [
       {
-        "name": "RDX Contributors"
+        "name": "Farhan Syah"
       }
     ],
     "links": {
