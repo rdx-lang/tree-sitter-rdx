@@ -1,14 +1,7 @@
 {
   "RDX Frontmatter": {
     "prefix": "frontmatter",
-    "body": [
-      "---",
-      "title: ${1:Title}",
-      "${2:key: value}",
-      "---",
-      "",
-      "$0"
-    ],
+    "body": ["---", "title: ${1:Title}", "${2:key: value}", "---", "", "$0"],
     "description": "Insert RDX frontmatter block"
   },
   "RDX Component (Block)": {
@@ -18,36 +11,46 @@
       "  $0",
       "</${1:Component}>"
     ],
-    "description": "Insert an RDX block component"
+    "description": "Insert a block component with children"
   },
   "RDX Component (Self-Closing)": {
     "prefix": "comps",
-    "body": [
-      "<${1:Component} ${2:prop=\"value\"} />"
-    ],
-    "description": "Insert an RDX self-closing component"
+    "body": ["<${1:Component} ${2:prop=\"value\"} />"],
+    "description": "Insert a self-closing component"
   },
   "RDX Variable": {
     "prefix": "var",
-    "body": [
-      "{\\$${1:path}}"
-    ],
-    "description": "Insert an RDX variable interpolation"
+    "body": ["{\\$${1:path}}"],
+    "description": "Insert a variable interpolation {$path}"
   },
   "RDX JSON Attribute": {
-    "prefix": "json",
-    "body": [
-      "${1:prop}={{",
-      "  ${0:\"key\": \"value\"}",
-      "}}"
-    ],
+    "prefix": "jsonattr",
+    "body": ["${1:prop}={{", "  ${0:\"key\": \"value\"}", "}}"],
     "description": "Insert a JSON object attribute"
   },
   "RDX Primitive Attribute": {
-    "prefix": "prim",
-    "body": [
-      "${1:prop}={${2:true}}"
-    ],
-    "description": "Insert a primitive attribute"
+    "prefix": "primattr",
+    "body": ["${1:prop}={${2:true}}"],
+    "description": "Insert a primitive attribute (true/false/null/number)"
+  },
+  "RDX Variable Attribute": {
+    "prefix": "varattr",
+    "body": ["${1:prop}={\\$${2:path}}"],
+    "description": "Insert a variable attribute {$path}"
+  },
+  "RDX Display Math": {
+    "prefix": "math",
+    "body": ["$$", "${1:expression}", "$$"],
+    "description": "Insert a display math block"
+  },
+  "RDX Inline Math": {
+    "prefix": "imath",
+    "body": ["\\$${1:expression}\\$"],
+    "description": "Insert inline math $expression$"
+  },
+  "RDX Code Block": {
+    "prefix": "code",
+    "body": ["```${1:language}", "$0", "```"],
+    "description": "Insert a fenced code block"
   }
 }

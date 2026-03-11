@@ -1,6 +1,6 @@
 {
   "name": "rdx-lang",
-  "displayName": "RDX Language Support",
+  "displayName": "RDX - Reactive Document eXpressions",
   "description": "Syntax highlighting, snippets, and language support for RDX (Reactive Document eXpressions)",
   "version": "0.1.0",
   "publisher": "rdx-lang",
@@ -9,7 +9,21 @@
     "type": "git",
     "url": "https://github.com/rdx-lang/tree-sitter-rdx"
   },
-  "categories": ["Programming Languages"],
+  "homepage": "https://github.com/rdx-lang/rdx",
+  "bugs": {
+    "url": "https://github.com/rdx-lang/tree-sitter-rdx/issues"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "rdx",
+    "markdown",
+    "components",
+    "document",
+    "syntax-highlighting"
+  ],
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -17,8 +31,13 @@
     "languages": [
       {
         "id": "rdx",
-        "aliases": ["RDX", "rdx"],
-        "extensions": [".rdx"],
+        "aliases": [
+          "RDX",
+          "rdx"
+        ],
+        "extensions": [
+          ".rdx"
+        ],
         "configuration": "./language-configuration.json"
       }
     ],
@@ -29,7 +48,43 @@
         "path": "./syntaxes/rdx.tmLanguage.json",
         "embeddedLanguages": {
           "meta.embedded.block.yaml": "yaml",
-          "meta.embedded.block.json": "json"
+          "meta.embedded.block.json": "json",
+          "meta.embedded.block.latex": "latex",
+          "meta.embedded.block.javascript": "javascript",
+          "meta.embedded.block.typescript": "typescript",
+          "meta.embedded.block.python": "python",
+          "meta.embedded.block.rust": "rust",
+          "meta.embedded.block.html": "html",
+          "meta.embedded.block.css": "css",
+          "meta.embedded.block.shellscript": "shellscript",
+          "meta.embedded.block.go": "go",
+          "meta.embedded.block.c": "c",
+          "meta.embedded.block.cpp": "cpp",
+          "meta.embedded.block.java": "java",
+          "meta.embedded.block.sql": "sql",
+          "meta.embedded.block.ruby": "ruby",
+          "meta.embedded.block.php": "php",
+          "meta.embedded.block.swift": "swift",
+          "meta.embedded.block.dart": "dart",
+          "meta.embedded.block.scala": "scala",
+          "meta.embedded.block.csharp": "csharp",
+          "meta.embedded.block.xml": "xml",
+          "meta.embedded.block.lua": "lua",
+          "meta.embedded.block.r": "r",
+          "meta.embedded.block.perl": "perl",
+          "meta.embedded.block.dockerfile": "dockerfile",
+          "meta.embedded.block.typescriptreact": "typescriptreact",
+          "meta.embedded.block.javascriptreact": "javascriptreact",
+          "meta.embedded.block.less": "less",
+          "meta.embedded.block.scss": "scss",
+          "meta.embedded.block.makefile": "makefile",
+          "meta.embedded.block.diff": "diff",
+          "meta.embedded.block.elixir": "elixir",
+          "meta.embedded.block.markdown": "markdown",
+          "meta.embedded.block.ini": "ini",
+          "meta.embedded.block.powershell": "powershell",
+          "meta.embedded.block.kotlin": "kotlin",
+          "meta.embedded.block.zig": "zig"
         }
       }
     ],

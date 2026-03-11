@@ -52,3 +52,6 @@ zig-out/
 *.tar.gz
 *.tgz
 *.zip
+
+# VS Code extension
+*.vsix
