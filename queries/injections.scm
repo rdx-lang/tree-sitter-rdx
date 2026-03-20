@@ -10,3 +10,11 @@
 ((fenced_code_block
   (code_language) @injection.language
   (code_content) @injection.content))
+
+; Inject LaTeX into math blocks
+((math_content) @injection.content
+  (#set! injection.language "latex"))
+
+; Inject LaTeX into inline math
+((math_expression) @injection.content
+  (#set! injection.language "latex"))

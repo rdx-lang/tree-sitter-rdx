@@ -30,6 +30,21 @@
 ; JSON attributes
 (json_content) @embedded
 
+; Citations (Section 2.7)
+(citation "[" @punctuation.special)
+(citation "]" @punctuation.special)
+(citation_content) @markup.link
+
+; Cross-references (Section 2.8)
+(cross_reference "{@" @punctuation.special)
+(cross_reference "}" @punctuation.special)
+(cross_ref_target) @markup.link
+
+; Display math labels (Section 2.10)
+(math_label "{#" @punctuation.special)
+(math_label "}" @punctuation.special)
+(math_label_id) @label
+
 ; Variables
 (variable_path) @variable
 (variable_interpolation "{" @punctuation.special)
