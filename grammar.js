@@ -45,6 +45,8 @@ module.exports = grammar({
       choice(
         $.component,
         $.self_closing_component,
+        $.citation,
+        $.cross_reference,
         $.variable_interpolation,
         $.escaped_sequence,
         $.fenced_code_block,
@@ -61,6 +63,9 @@ module.exports = grammar({
       token(
         choice(
           "\\{$",
+          "\\{@",
+          "\\[@",
+          "\\$",
           "\\{{",
           "\\}}",
           "\\{",
@@ -87,6 +92,24 @@ module.exports = grammar({
     inline_code: ($) => seq("`", /[^`]+/, "`"),
 
     // -----------------------------------------------------------
+    // 2.7 Citations
+    // [@key] or [@key, p. 42] or [@a; @b]
+    // -----------------------------------------------------------
+    citation: ($) =>
+      prec(2, seq("[", $.citation_content, "]")),
+
+    citation_content: ($) => /[@][a-zA-Z][a-zA-Z0-9_:.\/;,\s@-]*/,
+
+    // -----------------------------------------------------------
+    // 2.8 Cross-References
+    // {@target}
+    // -----------------------------------------------------------
+    cross_reference: ($) =>
+      seq("{@", $.cross_ref_target, "}"),
+
+    cross_ref_target: ($) => /[a-zA-Z_][a-zA-Z0-9_:.-]*/,
+
+    // -----------------------------------------------------------
     // 2.6 Math (LaTeX)
     // Display math: $$ on own line, handled by external scanner.
     // Inline math: $...$ (not preceded by {, which is variable syntax)
@@ -94,10 +117,16 @@ module.exports = grammar({
     display_math: ($) =>
       seq(
         alias($._math_fence_open, $.math_delimiter),
+        optional($.math_label),
         /\n/,
         optional(alias($._math_content, $.math_content)),
         alias($._math_fence_close, $.math_delimiter),
       ),
+
+    // {#identifier} label on display math opening line
+    math_label: ($) => seq("{#", $.math_label_id, "}"),
+
+    math_label_id: ($) => /[a-zA-Z_][a-zA-Z0-9_:.-]*/,
 
     inline_math: ($) => prec(1, seq("$", $.math_expression, "$")),
 
@@ -118,6 +147,8 @@ module.exports = grammar({
       choice(
         $.component,
         $.self_closing_component,
+        $.citation,
+        $.cross_reference,
         $.variable_interpolation,
         $.escaped_sequence,
         $.inline_math,
@@ -228,6 +259,7 @@ module.exports = grammar({
     // -----------------------------------------------------------
     // Match non-special chars, or `<` not followed by [A-Z] or `/`
     // (so autolinks like <https://...> and HTML tags fall through to text)
-    text: ($) => /[^<{`\\$]+|<[^A-Z/\s]|[{\\]/,
+    // Match non-special chars. Excludes: < { ` \ $ [ (for citations)
+    text: ($) => /[^<{`\\$\[]+|<[^A-Z/\s]|[{\\]|\[[^@]/,
   },
 });
